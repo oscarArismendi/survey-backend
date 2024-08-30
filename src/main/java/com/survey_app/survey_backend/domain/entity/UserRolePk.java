@@ -12,8 +12,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserRolPk implements Serializable {
-    @Column(name = "rol_id")
+public class UserRolePk implements Serializable {
+    @Column(name = "role_id")
     private Long rol;
 
     @Column(name = "user_id")

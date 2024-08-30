@@ -16,13 +16,13 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
-public class UserRol {
+public class UserRole {
     @EmbeddedId
-    private UserRolPk id;
+    private UserRolePk id;
 
     @ManyToOne
-    @JoinColumn(name = "rol_id", insertable = false, updatable = false)
-    private Rol roles;
+    @JoinColumn(name = "role_id", insertable = false, updatable = false)
+    private Role roles;
 
     @ManyToOne
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
