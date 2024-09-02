@@ -11,12 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.survey_app.survey_backend.application.services.IUserService;
 import com.survey_app.survey_backend.domain.entity.Role;
-import com.survey_app.survey_backend.domain.entity.User;
+import com.survey_app.survey_backend.domain.entity.UserEntity;
 import com.survey_app.survey_backend.infrastructure.repositories.role.RoleRepository;
 
 @Service
 public class UserAdapter implements IUserService {
- @Autowired
+    @Autowired
     private UserRepository repository;
 
     @Autowired
@@ -27,13 +27,13 @@ public class UserAdapter implements IUserService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<User> findAll() {
-        return (List<User>) repository.findAll();
+    public List<UserEntity> findAll() {
+        return (List<UserEntity>) repository.findAll();
     }
 
     @Override
     @Transactional
-    public User save(User user) {
+    public UserEntity save(UserEntity user) {
         Optional<Role> optionalRoleUser = roleRepository.findByName("ROLE_USER");
         List<Role> roles = new ArrayList<>();
 

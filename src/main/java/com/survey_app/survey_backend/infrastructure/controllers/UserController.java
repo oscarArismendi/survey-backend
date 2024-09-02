@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,23 +18,27 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 
 import com.survey_app.survey_backend.application.services.IUserService;
-import com.survey_app.survey_backend.domain.entity.User;
+import com.survey_app.survey_backend.domain.entity.UserEntity;
 
 
 
 @RestController
 @RequestMapping("/users")
+@PreAuthorize("denyAll()")
 public class UserController {
 @Autowired
     private IUserService service;
 
-    @GetMapping
-    public List<User> list() {
+    @GetMapping("/list-all")
+    @PreAuthorize("permitAll()")
+    public List<UserEntity> list() {
         return service.findAll();
     }
 
-        @PostMapping
-    public ResponseEntity<?> create(@Valid @RequestBody User user, BindingResult result) {
+    // "hasAuthority('Read Response Options')"
+    @PostMapping("/create")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<?> create(@Valid @RequestBody UserEntity user, BindingResult result) {
         if (result.hasFieldErrors()) {
             return validation(result);
         }
@@ -44,7 +49,7 @@ public class UserController {
         Map<String, String> errors = new HashMap<>();
 
         result.getFieldErrors().forEach(err -> {
-            errors.put(err.getField(), "El campo " + err.getField() + " " + err.getDefaultMessage());
+            errors.put(err.getField(), "The field " + err.getField() + " " + err.getDefaultMessage());
         });
         return ResponseEntity.badRequest().body(errors);
     }
