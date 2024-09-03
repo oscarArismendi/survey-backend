@@ -31,7 +31,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString
+@ToString(exclude = "users")
 public class Role {
  @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

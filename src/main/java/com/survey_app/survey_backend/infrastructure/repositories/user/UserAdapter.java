@@ -1,7 +1,8 @@
 package com.survey_app.survey_backend.infrastructure.repositories.user;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,8 @@ public class UserAdapter implements IUserService {
     @Transactional
     public UserEntity save(UserEntity user) {
         Optional<Role> optionalRoleUser = roleRepository.findByName("ROLE_USER");
-        List<Role> roles = new ArrayList<>();
+        Set<Role> roles = new HashSet<>();
+
 
         optionalRoleUser.ifPresent(roles::add);
 
