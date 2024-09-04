@@ -58,10 +58,10 @@ INSERT INTO role_permissions (permission_id, role_id) VALUES (21, 2); -- User Lo
 INSERT INTO role_permissions (permission_id, role_id) VALUES (22, 2); -- User Logout
 
 -- Creating the admin user
-INSERT INTO users (account_no_expired, account_no_locked, credential_no_expired, is_enabled, password, username) VALUES (b'1', b'1', b'1', b'1', '$2a$10$qpnrn5sE.wUG6jmKRVd9zuIoJrqQcrevgrI/9Lk3ilDuycEQ3eh2y', 'admin@example.com');
+INSERT INTO users (account_no_expired, account_no_locked, credential_no_expired, is_enabled, password, username) VALUES (b'1', b'1', b'1', b'1', '$2a$10$7eTUu6pEZl7XpX8IZFY.zOzJ2nOoJWsjwOMCFsHrpEdBJtQUnsm4O', 'admin@example.com');
 
 -- Creating the standard user
-INSERT INTO users (account_no_expired, account_no_locked, credential_no_expired, is_enabled, password, username) VALUES (b'1', b'1', b'1', b'1', '$2a$10$qpnrn5sE.wUG6jmKRVd9zuIoJrqQcrevgrI/9Lk3ilDuycEQ3eh2y', 'user@example.com');
+INSERT INTO users (account_no_expired, account_no_locked, credential_no_expired, is_enabled, password, username) VALUES (b'1', b'1', b'1', b'1', '$2a$10$1i30oeV9SPD.Mp6JgVo3n.Gpx6.fyLFseSiLo3dZ6sNpS3eZt1ohe', 'user@example.com');
 
 -- Assigning the admin role to the admin user
 INSERT INTO users_roles (role_id, user_id) VALUES (1, 1); -- role_id 1 is for admin
