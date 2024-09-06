@@ -20,10 +20,10 @@ public class Survey {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
     
-    @Column(name = "componenthtml", length = 20)
+    @Column(name = "componenthtml", length = 50)
     private String componentHtml;
     
-    @Column(name = "componentreact", length = 20)
+    @Column(name = "componentreact", length = 50)
     private String componentReact;
     
     @Column(columnDefinition = "TEXT")
