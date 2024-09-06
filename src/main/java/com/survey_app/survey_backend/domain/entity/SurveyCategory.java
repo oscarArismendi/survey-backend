@@ -1,29 +1,28 @@
 package com.survey_app.survey_backend.domain.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import java.util.List;
 
 @Entity
 @Table(name = "survey_category")
+@Getter @Setter
 public class SurveyCategory {
-
-     @Id
+    
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "survey_id")
-    private Survey survey;
-
+    
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
-
-    // Getters and Setters
+    
+    @ManyToOne
+    @JoinColumn(name = "survey_id")
+    private Survey survey;
+    
+    @OneToMany(mappedBy = "surveyCategory")
+    private List<QuestionCategory> questionCategories;
 
 }

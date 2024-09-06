@@ -1,27 +1,33 @@
 package com.survey_app.survey_backend.domain.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "option_questions")
+@Getter @Setter
 public class OptionQuestion {
-   @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+    
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+    
     @ManyToOne
     @JoinColumn(name = "option_id")
     private Option option;
-
+    
     @ManyToOne
-    @JoinColumn(name = "question_id")
+    @JoinColumn(name = "optionquestion_id")
     private Question question;
-
-    // Getters and Setters
+    
+    @ManyToOne
+    @JoinColumn(name = "subquestion_id")
+    private SubQuestion subQuestion;
 }

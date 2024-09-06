@@ -1,36 +1,35 @@
 package com.survey_app.survey_backend.domain.entity;
 
-import java.sql.Timestamp;
 import java.util.List;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "categories_catalog")
+@Getter
+ @Setter
 public class Category {
-@Id
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
     @Column(name = "created_at")
-    private Timestamp createdAt;
-
+    private LocalDateTime createdAt;
+    
     @Column(name = "updated_at")
-    private Timestamp updatedAt;
-
+    private LocalDateTime updatedAt;
+    
+    @Column(length = 255)
     private String name;
+    
+    @OneToMany(mappedBy = "categoryCatalog")
+    private List<CategoryOption> categoryOptions;
 
     @OneToMany(mappedBy = "category")
     private List<SurveyCategory> surveyCategories;
-
-    @OneToMany(mappedBy = "category")
-    private List<QuestionCategory> questionCategories;
-
-    // Getters and Setters
+    
 }
