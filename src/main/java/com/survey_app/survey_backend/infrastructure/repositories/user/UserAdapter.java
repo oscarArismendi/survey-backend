@@ -1,7 +1,8 @@
 package com.survey_app.survey_backend.infrastructure.repositories.user;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.survey_app.survey_backend.application.services.IUserService;
 import com.survey_app.survey_backend.domain.entity.Role;
-import com.survey_app.survey_backend.domain.entity.User;
+import com.survey_app.survey_backend.domain.entity.UserEntity;
 import com.survey_app.survey_backend.infrastructure.repositories.role.RoleRepository;
 
 @Service
 public class UserAdapter implements IUserService {
- @Autowired
+    @Autowired
     private UserRepository repository;
 
     @Autowired
@@ -27,15 +28,16 @@ public class UserAdapter implements IUserService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<User> findAll() {
-        return (List<User>) repository.findAll();
+    public List<UserEntity> findAll() {
+        return (List<UserEntity>) repository.findAll();
     }
 
     @Override
     @Transactional
-    public User save(User user) {
+    public UserEntity save(UserEntity user) {
         Optional<Role> optionalRoleUser = roleRepository.findByName("ROLE_USER");
-        List<Role> roles = new ArrayList<>();
+        Set<Role> roles = new HashSet<>();
+
 
         optionalRoleUser.ifPresent(roles::add);
 

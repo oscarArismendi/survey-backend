@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SurveyBackendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SurveyBackendApplication.class, args);
+		SpringApplication.run(SurveyBackendApplication.class, args);		
 	}
 
 }

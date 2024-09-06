@@ -1,13 +1,10 @@
 package com.survey_app.survey_backend.infrastructure.controllers;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,35 +14,37 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 
 import com.survey_app.survey_backend.application.services.IUserService;
-import com.survey_app.survey_backend.domain.entity.User;
+import com.survey_app.survey_backend.application.services.UserDetailServiceImpl;
+import com.survey_app.survey_backend.domain.entity.UserEntity;
+import com.survey_app.survey_backend.infrastructure.controllers.dto.AuthCreateUserRequest;
+import com.survey_app.survey_backend.infrastructure.controllers.dto.AuthLoginRequest;
+import com.survey_app.survey_backend.infrastructure.controllers.dto.AuthResponse;
 
 
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
-@Autowired
+    
+    @Autowired
     private IUserService service;
 
-    @GetMapping
-    public List<User> list() {
+    @Autowired
+    private UserDetailServiceImpl userDetailService;
+
+    @GetMapping("/list-all")
+    public List<UserEntity> list() {
         return service.findAll();
     }
 
-        @PostMapping
-    public ResponseEntity<?> create(@Valid @RequestBody User user, BindingResult result) {
-        if (result.hasFieldErrors()) {
-            return validation(result);
-        }
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.save(user));
+    @PostMapping("/sign-up")
+    public ResponseEntity<AuthResponse> register(@RequestBody @Valid AuthCreateUserRequest userRequest){
+        return new ResponseEntity<>(this.userDetailService.createUser(userRequest), HttpStatus.CREATED);
     }
     
-    private ResponseEntity<?> validation(BindingResult result) {
-        Map<String, String> errors = new HashMap<>();
-
-        result.getFieldErrors().forEach(err -> {
-            errors.put(err.getField(), "El campo " + err.getField() + " " + err.getDefaultMessage());
-        });
-        return ResponseEntity.badRequest().body(errors);
+    @PostMapping("/log-in")
+    public ResponseEntity<AuthResponse> login(@RequestBody @Valid AuthLoginRequest userRequest){
+        return new ResponseEntity<>(this.userDetailService.loginUser(userRequest), HttpStatus.OK);
     }
+
 }
