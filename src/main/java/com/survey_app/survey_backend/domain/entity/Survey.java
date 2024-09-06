@@ -6,11 +6,10 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.List;
 
-
 @Entity
-@Table(name = "categories_catalog")
+@Table(name = "surveys")
 @Getter @Setter
-public class CategoryCatalog {
+public class Survey {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,12 +20,21 @@ public class CategoryCatalog {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
     
-    @Column(length = 255)
+    @Column(name = "componenthtml", length = 20)
+    private String componentHtml;
+    
+    @Column(name = "componentreact", length = 20)
+    private String componentReact;
+    
+    @Column(columnDefinition = "TEXT")
+    private String description;
+    
+    @Column(columnDefinition = "TEXT")
     private String name;
     
-    @OneToMany(mappedBy = "categoryCatalog")
-    private List<CategoryOption> categoryOptions;
-
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "survey")
+    private List<Chapter> chapters;
+    
+    @OneToMany(mappedBy = "survey")
     private List<SurveyCategory> surveyCategories;
 }

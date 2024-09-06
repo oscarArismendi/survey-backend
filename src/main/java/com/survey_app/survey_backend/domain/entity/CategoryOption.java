@@ -4,13 +4,12 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDateTime;
-import java.util.List;
 
 
 @Entity
-@Table(name = "categories_catalog")
+@Table(name = "category_options")
 @Getter @Setter
-public class CategoryCatalog {
+public class CategoryOption {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,12 +20,15 @@ public class CategoryCatalog {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
     
-    @Column(length = 255)
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "catalogoptions_id")
+    private CategoryCatalog categoryCatalog;
     
-    @OneToMany(mappedBy = "categoryCatalog")
-    private List<CategoryOption> categoryOptions;
+    @ManyToOne
+    @JoinColumn(name = "categoriesoptions_id")
+    private Option option;
 
-    @OneToMany(mappedBy = "category")
-    private List<SurveyCategory> surveyCategories;
+
+    
+
 }
