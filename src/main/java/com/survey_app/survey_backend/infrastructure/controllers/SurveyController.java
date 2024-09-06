@@ -14,7 +14,7 @@ import com.survey_app.survey_backend.domain.entity.Survey;
 import com.survey_app.survey_backend.domain.entity.dto.SurveyDTO;
 
 @RestController
-@RequestMapping("/api/surveys")
+@RequestMapping("/surveys")
 public class SurveyController {
 
      private final SurveyService surveyService;
@@ -24,11 +24,11 @@ public class SurveyController {
         this.surveyService = surveyService;
     }
 
-    @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/create")
+    //@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Survey> createSurvey(@RequestBody SurveyDTO surveyDTO) {
         Survey createdSurvey = surveyService.createSurvey(surveyDTO);
         return new ResponseEntity<>(createdSurvey, HttpStatus.CREATED);
     }
-    
+
 }
