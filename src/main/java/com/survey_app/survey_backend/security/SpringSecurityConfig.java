@@ -46,7 +46,7 @@ public class SpringSecurityConfig {
 			authz.requestMatchers(HttpMethod.POST, "/users/**").permitAll();
 			authz.requestMatchers(HttpMethod.GET, "/users/**").hasRole("ADMIN");
 			//configure private endpoints
-			//authz.requestMatchers(HttpMethod.GET, "/users/create").hasRole("ADMIN");
+			authz.requestMatchers(HttpMethod.POST, "/surveys/create").hasRole("ADMIN");
 			//configure remaining endpoints
 			authz.anyRequest().denyAll();
 		}).addFilterBefore(new JwtTokenValidator(jwtUtils), BasicAuthenticationFilter.class)
